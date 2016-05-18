@@ -67,7 +67,7 @@ void Manifold::ApplyImpulse( void )
     Vec2 rb = contacts[i] - B->position;
 
     // Relative velocity
-    Vec2 rv = B->velocity + Cross( B->angularVelocity, rb ) -
+    Vec2 rv = B->velocity - Cross( B->angularVelocity, rb ) -
               A->velocity - Cross( A->angularVelocity, ra );
 
     // Relative velocity along the normal
@@ -92,7 +92,7 @@ void Manifold::ApplyImpulse( void )
     B->ApplyImpulse(  impulse, rb );
 
     // Friction impulse
-    rv = B->velocity + Cross( B->angularVelocity, rb ) -
+    rv = B->velocity - Cross( B->angularVelocity, rb ) -
          A->velocity - Cross( A->angularVelocity, ra );
 
     Vec2 t = rv - (normal * Dot( rv, normal ));
